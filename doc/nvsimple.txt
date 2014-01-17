@@ -1,0 +1,196 @@
+*nvsimple.txt* nvSimple - a poor man's Notational Velocity.   *nvsimple*
+
+CONTENTS ~
+
+                                                        *nvsimple-contents*
+===========================================================================
+
+1. ABOUT                                                |nvsimple-about|
+   See Also                                             |nvsimple-see-also|
+2. INSTALLING                                           |nvsimple-install|
+3. CONFIGURING                                          |nvsimple-configure|
+4. USING                                                |nvsimple-about|
+5. API                                                  |nvsimple-api|
+6. CHANGELOG                                            |nvsimple-changelog|
+7. LICENSE                                              |nvsimple-license|
+
+===========================================================================
+
+1. ABOUT ~
+                                                        *nvsimple-about*
+
+nvSimple is a poor man's imitation of Notational Velocity or nvALT.
+
+nvSimple is a way to maintain a flat directory of plain text notes with easy
+full text search, and quick access.
+
+nvSimple is based on an idea by Ellen Gummesson.
+
+nvSimple makes use of |vimgrep| and the |quickfix| list.
+
+See Also ~
+                                                        *nvsimple-see-also*
+
+Notational Velocity:    http://notational.net/
+nvALT:                  http://brettterpstra.com/projects/nvalt/
+Ellen Gummesson's original idea:
+                        http://ellengummesson.com/blog/2013/07/29/a-poor-mans-notational-velocity-resophnotes-vim-alternative/
+
+
+2. INSTALLING ~
+                                                        *nvsimple-install*
+
+The easiest way is to point Pathogen or Vundle at the git repository on
+GitHub at https://github.com/scrosland/nvsimple.
+
+For example, using Vundle (https://github.com/gmarik/vundle) add this
+to your .vimrc: >
+
+    Bundle 'scrosland/nvsimple'
+
+
+3. CONFIGURING ~
+                                                        *nvsimple-configure*
+                                                        *nvsimple-options*
+
+By default nvSimple will assume that your notes are stored in text files with
+a '.txt' extension in $USERPROFILE\Documents\notes on Windows,
+and in $HOME/notes on all other platforms.
+
+nvSimple knows how to start NERDTree or netrw to browse the notes directory.
+
+All of this can be changed through the nvSimple configuration variables:
+
+    |nvsimple_browser|..............Configure the directory browser.
+    |nvsimple_default_extension|....Set the default note file extension.
+    |nvsimple_notes_directory|......Set the notes directory path.
+
+                                                        *'g:nvsimple_browser'*
+
+Use this option to configure which command is called to browse the notes
+folder. By default this is set to :NERDTree if the NERDTree plugin is
+installed, otherwise this is defaults to |:Sexplore|. This must include the
+leading ':' on the command name.
+>
+    let g:nvsimple_browse = ':Sexplore'
+<
+
+                                              *'g:nvsimple_default_extension'*
+
+Use this option to configure the default extension for a notes file.
+By default this is set to '.txt'. This must include the period ('.').
+>
+    let g:nvsimple_default_extension = '.txt'
+<
+
+                                              *'g:nvsimple_notes_directory'*
+
+Use this option to set the location of the directory containing your notes.
+The default for this option depends on platform:
+  - on Windows               $USERPROFILE\Documents\notes
+  - on all other platforms   $HOME/notes.
+>
+    let g:nvsimple_notes_directory = '$HOME/notes'
+<
+
+
+4. USING ~
+                                                        *nvsimple-using*
+
+The interface to nvSimple is two commands, |:Nv| and |:Nvopen|.
+
+    |:Nv|.........................Search or browse for a notes file.
+    |:Nvopen|.....................Edit or create a notes file.
+
+                                                        *nvsimple-Nv* *:Nv*
+:Nv [pattern]
+
+    Search or browse for notes.
+
+    If [pattern] is not supplied, the command prompts for a search pattern. At
+    the prompt, either enter a |vimgrep| style pattern, or press return to open
+    a directory browser in your notes directory, as configured with
+    |'g:nvsimple_notes_directory'|.
+
+    Searches all notes for [pattern] using |vimgrep|, and then opens the
+    results in the |quickfix| window via the |copen| command. The search will
+    include all notes files whether they have the default extension or not.
+
+
+                                                        *nvsimple-Nvopen*
+                                                        *:Nvopen*
+:Nvopen
+:Nvopen a-new-note
+:Nvopen a-new-todo.taskpaper
+
+    Opens an existing note or creates a new note.
+
+    If a name is not supplied, the command prompts for the name.
+
+    If the name does not include an extension (e.g. '.txt') the default file
+    extension will be appended from the |'g:nvsimple_default_extension'|
+    option. Names may include spaces.
+
+
+5. API ~
+                                                        *nvsimple-api*
+
+If you wish to declare your own commands or call nvSimple from vimscript
+functions there is a public API.
+
+    |:Nvopen|.....................Edit or create a notes file.
+
+                                                        *nvsimple#browse*
+>
+    nvsimple#browse()
+
+Open a directory browser in the configured notes directory.
+
+                                                        *nvsimple#search*
+>
+    nvsimple#search(pattern)
+
+Search for a |vimgrep| {pattern} in the notes files. If pattern is empty the
+function will prompt the user: if the pattern is still empty, opens a browser.
+
+                                                        *nvsimple#open*
+>
+    nvsimple#open(bang, filename)
+
+Open or create a note with {filename}. {bang} is <q-bang> (see |bang|).
+See |Nvopen| for further details.
+
+
+6. CHANGELOG ~
+                                                        *nvsimple-changelog*
+
+0.1.1   2014-01-16
+
+    - Initial version.
+
+
+7. LICENSE ~
+                                                        *nvsimple-license*
+
+The MIT License (MIT)
+
+Copyright (c) 2014 Simon Crosland
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
