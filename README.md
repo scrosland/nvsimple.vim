@@ -28,7 +28,7 @@ It is recommended to install nvSimple via [Pathogen][pathogen],
 Add this to your .vimrc:
 
     " load nvSimple
-    Bundle 'scrosland/nvsimple'
+    Bundle 'scrosland/nvsimple.vim'
 
     " configure the directory in which notes are stored
     let l:gnvsimple_notes_directory = '~/notes'

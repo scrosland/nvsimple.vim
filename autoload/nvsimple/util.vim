@@ -28,7 +28,7 @@ function! nvsimple#util#browser()
   elseif exists(":NERDTree")
     return ':NERDTree'
   else
-    return ':Sexplore'
+    return ':Explore'
   endif
 endfunction
 
