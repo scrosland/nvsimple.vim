@@ -164,6 +164,11 @@ See |Nvopen| for further details.
 6. CHANGELOG ~
                                                         *nvsimple-changelog*
 
+0.1.2   2014-01-18
+
+    - Expand and escape pathnames to cope with meta characters.
+    - Check whether g:nvsimple_notes_directory exists, report error if not.
+
 0.1.1   2014-01-16
 
     - Initial version.

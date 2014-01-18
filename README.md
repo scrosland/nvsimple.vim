@@ -1,4 +1,6 @@
-# nvsimple.vim - a poor man's Notational Velocity.
+# nvsimple.vim
+
+### A poor man's Notational Velocity.
 
 ## About
 

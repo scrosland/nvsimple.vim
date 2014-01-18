@@ -26,11 +26,13 @@
 
 " Opens a file system browser.
 function! nvsimple#browse()
+  if !s:check_directory() | return | endif
   call nvsimple#command#browse()
 endfunction
 
 " Searches all notes files for pattern. Prompts if argument is empty.
 function! nvsimple#search(pattern)
+  if !s:check_directory() | return | endif
   let l:pattern = a:pattern
   if strlen(l:pattern) == 0
     let l:pattern = nvsimple#util#input('Enter search: ')
@@ -50,6 +52,7 @@ function! nvsimple#open(bang, filename)
     echom "No write since last change (add ! to override)"
     return 0
   endif
+  if !s:check_directory() | return | endif
   let l:filename = a:filename
   if strlen(l:filename) == 0
     let l:filename = nvsimple#util#input('File name: ')
@@ -63,3 +66,14 @@ function! nvsimple#open(bang, filename)
   endif
   call nvsimple#command#edit(a:bang, l:filename)
 endfunction
+
+"  -------------------------------------------------------------------------
+
+function! s:check_directory()
+  if !isdirectory(expand(g:nvsimple_notes_directory))
+    echom "Notes directory: '".g:nvsimple_notes_directory."' does not exist"
+    return 0
+  endif
+  return 1
+endfunction
+

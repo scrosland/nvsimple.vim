@@ -24,12 +24,14 @@
 
 " Opens a file system browser.
 function! nvsimple#command#browse()
-  silent! execute nvsimple#util#browser() . ' ' . g:nvsimple_notes_directory
+  let l:command = nvsimple#util#browser()
+  let l:command .= ' ' . s:fnameescape(g:nvsimple_notes_directory)
+  silent! execute l:command
 endfunction
 
 " Searches all notes files for pattern
 function! nvsimple#command#search(pattern)
-  let l:command = 'lcd ' . g:nvsimple_notes_directory
+  let l:command = 'lcd ' . s:fnameescape(g:nvsimple_notes_directory)
   let l:command .= ' | vimgrep /' .  a:pattern . '/gj ' . '*'
   let l:command .= ' | copen'
   silent! execute l:command
@@ -39,8 +41,15 @@ endfunction
 " already contain an extension, this appends g:nvsimple_default_extension.
 " The filename argument should not contain any path separators.
 function! nvsimple#command#edit(bang, filename)
-  let l:command = 'lcd ' . g:nvsimple_notes_directory
-  let l:command .= ' | edit' . a:bang . ' ' . a:filename . ' | w'
+  let l:command = 'lcd ' . s:fnameescape(g:nvsimple_notes_directory)
+  let l:command .= ' | edit' . a:bang 
+  let l:command .= ' ' . s:fnameespace(a:filename) . ' | w'
   silent! execute l:command
+endfunction
+
+"  -------------------------------------------------------------------------
+
+function! s:fnameescape(path)
+  return fnameescape(expand(a:path))
 endfunction
 
