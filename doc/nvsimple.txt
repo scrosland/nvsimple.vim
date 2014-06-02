@@ -164,6 +164,10 @@ See |Nvopen| for further details.
 6. CHANGELOG ~
                                                         *nvsimple-changelog*
 
+0.1.4   2014-06-02
+
+    - Correct a typo s:fnameespace which should have been s:fnameescape.
+
 0.1.3   2014-01-18
 
     - Correct the docs to match the repository name change.

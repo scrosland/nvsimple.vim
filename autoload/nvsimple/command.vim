@@ -43,7 +43,7 @@ endfunction
 function! nvsimple#command#edit(bang, filename)
   let l:command = 'lcd ' . s:fnameescape(g:nvsimple_notes_directory)
   let l:command .= ' | edit' . a:bang 
-  let l:command .= ' ' . s:fnameespace(a:filename) . ' | w'
+  let l:command .= ' ' . s:fnameescape(a:filename) . ' | w'
   silent! execute l:command
 endfunction
 
