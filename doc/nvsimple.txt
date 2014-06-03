@@ -119,9 +119,9 @@ The interface to nvSimple is two commands, |:Nv| and |:Nvopen|.
 
                                                         *nvsimple-Nvopen*
                                                         *:Nvopen*
-:Nvopen
-:Nvopen a-new-note
-:Nvopen a-new-todo.taskpaper
+:Nvopen[!]
+:Nvopen[!] a-new-note
+:Nvopen[!] a-new-todo.taskpaper
 
     Opens an existing note or creates a new note.
 
@@ -131,6 +131,9 @@ The interface to nvSimple is two commands, |:Nv| and |:Nvopen|.
     extension will be appended from the |'g:nvsimple_default_extension'|
     option. Names may include spaces.
 
+    As Nvopen! the note file will be opened even if the current buffer is
+    modified.
+
 
 5. API ~
                                                         *nvsimple-api*
@@ -138,7 +141,9 @@ The interface to nvSimple is two commands, |:Nv| and |:Nvopen|.
 If you wish to declare your own commands or call nvSimple from vimscript
 functions there is a public API.
 
-    |:Nvopen|.....................Edit or create a notes file.
+    |nvsimple#browse|.............Browse notes files.
+    |nvsimple#search|.............Search or browse for a notes file.
+    |nvsimple#open|...............Edit or create a notes file.
 
                                                         *nvsimple#browse*
 >
@@ -163,6 +168,13 @@ See |Nvopen| for further details.
 
 6. CHANGELOG ~
                                                         *nvsimple-changelog*
+
+0.1.5   2014-06-03
+
+    - When :Nvopen or nvsimple#open() is given an empty path, and the user
+      does not supply a filename at the interactive prompt, treat this as
+      a 'browse' instead of creating an empty note called ".txt".
+    - Minor documentation fixes.
 
 0.1.4   2014-06-02
 

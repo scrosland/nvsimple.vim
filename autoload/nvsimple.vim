@@ -57,6 +57,9 @@ function! nvsimple#open(bang, filename)
   if strlen(l:filename) == 0
     let l:filename = nvsimple#util#input('File name: ')
   endif
+  if strlen(l:filename) == 0
+    call nvsimple#command#browse()
+  endif
   if fnamemodify(l:filename, ':t') != l:filename
     echom "Filename should not include any directories"
     return 0

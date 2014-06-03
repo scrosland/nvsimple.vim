@@ -27,7 +27,7 @@ if exists("g:loaded_nvsimple_plugin") || &cp
 endif
 
 let g:loaded_nvsimple_plugin = 1
-let g:nvsimple_version = '0.1.4'
+let g:nvsimple_version = '0.1.5'
 
 let s:keepcpo = &cpo
 set cpo&vim
