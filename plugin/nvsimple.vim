@@ -32,6 +32,10 @@ let g:nvsimple_version = '0.1.5'
 let s:keepcpo = &cpo
 set cpo&vim
 
+if !exists("g:nvsimple_grep_command")
+  let g:nvsimple_grep_command = 'vimgrep /\c{pattern}/gj {files}'
+endif
+
 if !exists("g:nvsimple_notes_directory")
   if has("win32")
     let g:nvsimple_notes_directory = "$USERPROFILE/Documents/notes"

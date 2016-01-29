@@ -32,8 +32,9 @@ endfunction
 " Searches all notes files for pattern
 function! nvsimple#command#search(pattern)
   let l:command = 'lcd ' . s:fnameescape(g:nvsimple_notes_directory)
-  let l:command .= ' | vimgrep /' .  a:pattern . '/gj ' . '*'
+  let l:command .= ' | ' . s:grepcommand(a:pattern)
   let l:command .= ' | copen'
+  echom l:command
   silent! execute l:command
 endfunction
 
@@ -53,3 +54,7 @@ function! s:fnameescape(path)
   return fnameescape(expand(a:path))
 endfunction
 
+function! s:grepcommand(pattern)
+  let l:cmd = substitute(g:nvsimple_grep_command, '\c{pattern}', a:pattern, "g")
+  return substitute(l:cmd, '\c{files}', '**', "g")
+endfunction
