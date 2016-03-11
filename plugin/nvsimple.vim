@@ -1,7 +1,7 @@
 "
 " The MIT License (MIT)
 " 
-" Copyright (c) 2014 Simon Crosland
+" Copyright (c) 2016 Simon Crosland
 " 
 " Permission is hereby granted, free of charge, to any person obtaining a copy
 " of this software and associated documentation files (the "Software"), to
@@ -27,7 +27,7 @@ if exists("g:loaded_nvsimple_plugin") || &cp
 endif
 
 let g:loaded_nvsimple_plugin = 1
-let g:nvsimple_version = '0.1.5'
+let g:nvsimple_version = '0.1.6'
 
 let s:keepcpo = &cpo
 set cpo&vim

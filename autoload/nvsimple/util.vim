@@ -1,7 +1,7 @@
 "
 " The MIT License (MIT)
 " 
-" Copyright (c) 2014 Simon Crosland
+" Copyright (c) 2016 Simon Crosland
 " 
 " Permission is hereby granted, free of charge, to any person obtaining a copy
 " of this software and associated documentation files (the "Software"), to
@@ -32,9 +32,22 @@ function! nvsimple#util#browser()
   endif
 endfunction
 
-function! nvsimple#util#input(prompt)
+function! nvsimple#util#directory()
+  return nvsimple#util#fnameescape(g:nvsimple_notes_directory)
+endfunction
+
+function! nvsimple#util#fnameescape(path)
+  return fnameescape(expand(a:path))
+endfunction
+
+function! nvsimple#util#input(prompt, completion)
   call inputsave()
-  let l:input = input(a:prompt)
+  let l:args = [ a:prompt ]
+  if strlen(a:completion) != 0
+    call add(l:args, "")
+    call add(l:args, a:completion)
+  endif
+  let l:input = call("input", l:args)
   call inputrestore()
   return l:input
 endfunction

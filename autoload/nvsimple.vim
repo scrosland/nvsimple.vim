@@ -1,7 +1,7 @@
 "
 " The MIT License (MIT)
 " 
-" Copyright (c) 2014 Simon Crosland
+" Copyright (c) 2016 Simon Crosland
 " 
 " Permission is hereby granted, free of charge, to any person obtaining a copy
 " of this software and associated documentation files (the "Software"), to
@@ -35,7 +35,7 @@ function! nvsimple#search(pattern)
   if !s:check_directory() | return | endif
   let l:pattern = a:pattern
   if strlen(l:pattern) == 0
-    let l:pattern = nvsimple#util#input('Enter search: ')
+    let l:pattern = nvsimple#util#input('Enter search: ', '')
   endif
   if strlen(l:pattern) == 0
     call nvsimple#command#browse()
@@ -46,23 +46,19 @@ endfunction
 
 " Create or edit a named note. If the filename argument does not
 " already contain an extension, this appends g:nvsimple_default_extension.
-" The filename argument should not contain any path separators.
 function! nvsimple#open(bang, filename)
   if &mod && a:bang != '!'
     echom "No write since last change (add ! to override)"
     return 0
   endif
   if !s:check_directory() | return | endif
+  silent! execute 'lcd ' . nvsimple#util#directory()
   let l:filename = a:filename
   if strlen(l:filename) == 0
-    let l:filename = nvsimple#util#input('File name: ')
+    let l:filename = nvsimple#util#input('File name: ', 'file')
   endif
   if strlen(l:filename) == 0
     call nvsimple#command#browse()
-  endif
-  if fnamemodify(l:filename, ':t') != l:filename
-    echom "Filename should not include any directories"
-    return 0
   endif
   if nvsimple#util#has_extension(l:filename) == 0
     let l:filename .= g:nvsimple_default_extension
