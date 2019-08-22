@@ -1,3 +1,11 @@
+# DEPRECATED
+
+[alok/notational-fzf-vim][] is a better version of a Notational Velocity or nvALT equivalent for vim.
+
+[alok/notational-fzf-vim]: https://github.com/alok/notational-fzf-vim
+
+<hr>
+
 # nvsimple.vim
 
 ### A poor man's Notational Velocity.
